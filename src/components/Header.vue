@@ -5,7 +5,7 @@
         }">
       <img src="../assets/cnodejs_light.svg" alt />
     </router-link>
-    <ul class="clearfix">
+    <ul class="clearfix navv">
       <li>
         <a href="#">首页</a>
       </li>
@@ -41,6 +41,11 @@ export default {
 }
 </style>
 <style scoped>
+@media screen and (max-width: 570px) {
+  .navv {
+    display: none;
+  }
+}
 .nav-bar {
   background-color: #444;
   height: 40px;
@@ -48,7 +53,7 @@ export default {
 }
 img {
   max-width: 120px;
-  margin-left: 67px;
+  margin-left: 75px;
   margin-top: 3px;
 }
 ul {

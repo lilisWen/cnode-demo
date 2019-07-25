@@ -186,7 +186,7 @@ export default {
   font-size: 13px;
 }
 .posts ul {
-  max-width: 1344px;
+  width: 1296px;
   margin: 0 auto;
   list-style: none;
   width: 100%;
