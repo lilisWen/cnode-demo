@@ -1,50 +1,56 @@
 <template>
   <div class="user_info">
-    <p class="bar zhuye">主页</p>
-    <section class="info">
-      <img :src="user.avatar_url" alt />
-      <span class="name">{{user.loginname}}</span>
-      <p class="score">{{user.score}}积分</p>
-      <p>github {{user.githubUsername}}</p>
-      <p class="create_at">注册时间：{{user.create_at | formatDate}}</p>
-    </section>
-    <div class="topics">
-      <p class="bar">最近创建的主题</p>
-      <ul>
-        <li v-for="item in user.recent_topics">
-          <img :src="item.author.avatar_url" alt />
-          <router-link
-            :to="{
+    <!-- 设置加载动画 -->
+    <div v-if="isLoading === true" class="loadoing">
+      <img src="../assets/loading.gif" alt class="limg" />
+    </div>
+    <div v-else>
+      <p class="bar zhuye">主页</p>
+      <section class="info">
+        <img :src="user.avatar_url" alt />
+        <span class="name">{{user.loginname}}</span>
+        <p class="score">{{user.score}}积分</p>
+        <p>github {{user.githubUsername}}</p>
+        <p class="create_at">注册时间：{{user.create_at | formatDate}}</p>
+      </section>
+      <div class="topics">
+        <p class="bar">最近创建的主题</p>
+        <ul>
+          <li v-for="item in user.recent_topics">
+            <img :src="item.author.avatar_url" alt />
+            <router-link
+              :to="{
             name:'post_content',
             params:{
               id:item.id,
              name:item.author.loginname
             }
             }"
-          >
-            <span class="title">{{item.title}}</span>
-          </router-link>
-        </li>
-      </ul>
-    </div>
-    <div class="replies">
-      <p class="bar">最近参与的话题</p>
-      <ul>
-        <li v-for="item in user.recent_replies">
-          <img :src="item.author.avatar_url" alt />
-          <router-link
-            :to="{
+            >
+              <span class="title">{{item.title}}</span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <div class="replies">
+        <p class="bar">最近参与的话题</p>
+        <ul>
+          <li v-for="item in user.recent_replies">
+            <img :src="item.author.avatar_url" alt />
+            <router-link
+              :to="{
             name:'post_content',
             params:{
               id:item.id,
               name:item.author.loginname
             }
             }"
-          >
-            <span class="title">{{item.title}}</span>
-          </router-link>
-        </li>
-      </ul>
+            >
+              <span class="title">{{item.title}}</span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +60,8 @@ export default {
   name: "user_info",
   data() {
     return {
-      user: {}
+      user: {},
+      isLoading: true
     };
   },
   methods: {
@@ -63,6 +70,7 @@ export default {
         .get(`https://cnodejs.org/api/v1/user/${this.$route.params.name}`)
         .then(result => {
           if (result.data.success) {
+            this.isLoading = false; //加载成功去除loading
             this.user = result.data.data;
           }
           console.log(this.user);
@@ -73,6 +81,7 @@ export default {
     }
   },
   beforeMount() {
+    this.isLoading = true;
     this.getuserData();
   }
 };
@@ -136,5 +145,13 @@ li {
 }
 .title:hover {
   color: #005580;
+}
+.loadoing {
+  text-align: center;
+  padding-top: 300px;
+}
+.loadoing .limg {
+  width: 250px;
+  height: 200px;
 }
 </style>

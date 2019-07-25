@@ -2,10 +2,10 @@
   <div class="PostList">
     <!-- 设置加载动画 -->
     <div v-if="isLoading === true" class="loadoing">
-      <img src="../assets/loading.gif" alt />
+      <img src="../assets/loading.gif" alt class="limg" />
     </div>
     <!-- 设置poslist -->
-    <div class="posts">
+    <div class="posts" v-else>
       <ul>
         <li>
           <div class="topbar">
@@ -111,8 +111,7 @@ export default {
       put_top: true,
       put_good: false,
       postpage: 1,
-      goodpost: [],
-      isActive: false
+      goodpost: []
     };
   },
   methods: {
@@ -170,7 +169,6 @@ export default {
 .PostList img {
   width: 30px;
   height: 30px;
-
   vertical-align: middle;
 }
 .all_count {
@@ -242,11 +240,6 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
-.loading {
-  text-align: center;
-  padding-top: 300px;
-}
 .put_good,
 .put_top {
   background: #80bd01;
@@ -269,5 +262,13 @@ a:hover {
   -o-border-radius: 3px;
   font-size: 12px;
   margin-right: 10px;
+}
+.loadoing {
+  text-align: center;
+  padding-top: 300px;
+}
+.loadoing .limg {
+  width: 250px;
+  height: 200px;
 }
 </style>
