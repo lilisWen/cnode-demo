@@ -79,7 +79,7 @@ export default {
           if (result.data.success == true) {
             this.isLoading = false; //加载成功去除loading
             this.post = result.data.data;
-            console.log(this.post.replies);
+            console.log(result);
           }
         })
         .catch(err => {
